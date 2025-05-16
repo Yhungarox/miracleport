@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miracle Arokoyo | Frontend Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="files/profile.jpg">
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .project-card {
+            transition: all 0.3s ease;
+            transform: translateY(0);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .skill-bar {
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            transition: width 1s ease-in-out;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            left: -8px;
+            top: 0;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            left: -1px;
+            top: 16px;
+            background: #e5e7eb;
+        }
+        
+        .contact-input {
+            transition: all 0.3s ease;
+        }
+        
+        .contact-input:focus {
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .hero-image {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="text-xl font-bold gradient-text">Miracle</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-center space-x-8">
+                        <a href="#home" class="nav-link text-gray-800 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Home</a>
+                        <a href="#about" class="nav-link text-gray-800 hover:text-indigo-600 px-3 py-2 text-sm font-medium">About</a>
+                        <a href="#skills" class="nav-link text-gray-800 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Skills</a>
+                        <a href="#projects" class="nav-link text-gray-800 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Projects</a>
+                        <a href="#experience" class="nav-link text-gray-800 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Experience</a>
+                        <a href="#contact" class="nav-link text-gray-800 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Contact</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="menu-toggle" class="text-gray-800 hover:text-indigo-600 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 text-base font-medium text-gray-800 hover:text-indigo-600">Home</a>
+                <a href="#about" class="block px-3 py-2 text-base font-medium text-gray-800 hover:text-indigo-600">About</a>
+                <a href="#skills" class="block px-3 py-2 text-base font-medium text-gray-800 hover:text-indigo-600">Skills</a>
+                <a href="#projects" class="block px-3 py-2 text-base font-medium text-gray-800 hover:text-indigo-600">Projects</a>
+                <a href="#experience" class="block px-3 py-2 text-base font-medium text-gray-800 hover:text-indigo-600">Experience</a>
+                <a href="#contact" class="block px-3 py-2 text-base font-medium text-gray-800 hover:text-indigo-600">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-to-br from-blue-50 to-purple-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">Hi, I'm <span class="gradient-text">Miracle Arokoyo</span></h1>
+                    <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-gray-700">Frontend Developer</h2>
+                    <p class="text-lg text-gray-600 mb-8 max-w-lg">I build exceptional digital experiences with modern web technologies. Focused on creating intuitive and responsive user interfaces.</p>
+                    <div class="flex space-x-4">
+                        <a href="#projects" class="btn-primary text-white px-6 py-3 rounded-lg font-medium">View My Work</a>
+                        <a href="#contact" class="border border-indigo-600 text-indigo-600 px-6 py-3 rounded-lg font-medium hover:bg-indigo-50 transition">Contact Me</a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <img src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Developer Illustration" class="hero-image w-3/4 md:w-full max-w-md rounded-lg shadow-xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">About <span class="gradient-text">Me</span></h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto"></div>
+            </div>
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/3 mb-8 md:mb-0 flex justify-center">
+                    <img src="files/profile.jpg" alt="Your Photo" class="w-64 h-64 rounded-full object-cover shadow-lg border-4 border-white">
+                </div>
+                <div class="md:w-2/3 md:pl-12">
+                    <h3 class="text-2xl font-semibold mb-4">Who am I?</h3>
+                    <p class="text-gray-600 mb-6">I'm a passionate Frontend Developer with 3+ years of experience creating modern, responsive web applications. I specialize in React, Vue.js, and modern JavaScript frameworks, with a strong focus on creating intuitive user interfaces and seamless user experiences.</p>
+                    <p class="text-gray-600 mb-6">My approach combines technical expertise with creative problem-solving to deliver high-quality digital products. I'm constantly learning and staying up-to-date with the latest web technologies and best practices.</p>
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="flex items-center">
+                            <span class="font-medium mr-2">Name:</span>
+                            <span class="text-gray-600">Miracle Arokoyo</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="font-medium mr-2">Email:</span>
+                            <span class="text-gray-600">miraclearokoyo2018@gmail.com</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="font-medium mr-2">From:</span>
+                            <span class="text-gray-600">Abuja, Nigeria</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="font-medium mr-2">Freelance:</span>
+                            <span class="text-gray-600">Available</span>
+                        </div>
+                    </div>
+                    <div class="flex space-x-4">
+                        <a href="files/Arokoyo, Miracle Updated CV.pdf" download class="btn-primary text-white px-6 py-2 rounded-lg font-medium">Download CV</a>
+                        <a href="#contact" class="border border-indigo-600 text-indigo-600 px-6 py-2 rounded-lg font-medium hover:bg-indigo-50 transition">Hire Me</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">My <span class="gradient-text">Skills</span></h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-6">Technical Skills</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">HTML5 & CSS3</span>
+                                <span class="text-gray-600">95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">JavaScript (ES6+)</span>
+                                <span class="text-gray-600">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">React.js</span>
+                                <span class="text-gray-600">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Vue.js</span>
+                                <span class="text-gray-600">80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Tailwind CSS</span>
+                                <span class="text-gray-600">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-6">Professional Skills</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">UI/UX Design</span>
+                                <span class="text-gray-600">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Responsive Design</span>
+                                <span class="text-gray-600">95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Problem Solving</span>
+                                <span class="text-gray-600">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Team Collaboration</span>
+                                <span class="text-gray-600">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Communication</span>
+                                <span class="text-gray-600">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12">
+                <h3 class="text-xl font-semibold mb-6 text-center">Tools & Technologies</h3>
+                <div class="flex flex-wrap justify-center gap-6">
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 bg-white rounded-full shadow-md flex items-center justify-center mb-2">
+                            <i class="fab fa-html5 text-3xl text-orange-500"></i>
+                        </div>
+                        <span class="text-sm">HTML5</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 bg-white rounded-full shadow-md flex items-center justify-center mb-2">
+                            <i class="fab fa-css3-alt text-3xl text-blue-500"></i>
+                        </div>
+                        <span class="text-sm">CSS3</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 bg-white rounded-full shadow-md flex items-center justify-center mb-2">
+                            <i class="fab fa-js text-3xl text-yellow-500"></i>
+                        </div>
+                        <span class="text-sm">JavaScript</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 bg-white rounded-full shadow-md flex items-center justify-center mb-2">
+                            <i class="fab fa-react text-3xl text-blue-400"></i>
+                        </div>
+                        <span class="text-sm">React</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 bg-white rounded-full shadow-md flex items-center justify-center mb-2">
+                            <i class="fab fa-vuejs text-3xl text-green-500"></i>
+                        </div>
+                        <span class="text-sm">Vue.js</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 bg-white rounded-full shadow-md flex items-center justify-center mb-2">
+                            <i class="fab fa-git-alt text-3xl text-orange-600"></i>
+                        </div>
+                        <span class="text-sm">Git</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 bg-white rounded-full shadow-md flex items-center justify-center mb-2">
+                            <i class="fab fa-figma text-3xl text-purple-500"></i>
+                        </div>
+                        <span class="text-sm">Figma</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 bg-white rounded-full shadow-md flex items-center justify-center mb-2">
+                            <i class="fab fa-npm text-3xl text-red-500"></i>
+                        </div>
+                        <span class="text-sm">npm</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">My <span class="gradient-text">Projects</span></h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto"></div>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Here are some of my recent projects. Each one was carefully crafted to solve specific problems and deliver exceptional user experiences.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="project-card bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Project 1" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-2">
+                            <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full uppercase font-semibold tracking-wide">React</span>
+                            <span class="ml-2 inline-block bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full uppercase font-semibold tracking-wide">Firebase</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">E-commerce Dashboard</h3>
+                        <p class="text-gray-600 mb-4">A comprehensive dashboard for e-commerce businesses with real-time analytics, inventory management, and customer insights.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="text-indigo-600 hover:text-indigo-800 font-medium">View Project →</a>
+                            <div class="flex space-x-2">
+                                <a href="#" class="text-gray-500 hover:text-gray-700"><i class="fab fa-github"></i></a>
+                                <a href="#" class="text-gray-500 hover:text-gray-700"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1555421689-3f034debb7a6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Project 2" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-2">
+                            <span class="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full uppercase font-semibold tracking-wide">Vue.js</span>
+                            <span class="ml-2 inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full uppercase font-semibold tracking-wide">Node.js</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Task Management App</h3>
+                        <p class="text-gray-600 mb-4">A collaborative task management application with drag-and-drop functionality, team assignments, and progress tracking.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="text-indigo-600 hover:text-indigo-800 font-medium">View Project →</a>
+                            <div class="flex space-x-2">
+                                <a href="#" class="text-gray-500 hover:text-gray-700"><i class="fab fa-github"></i></a>
+                                <a href="#" class="text-gray-500 hover:text-gray-700"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1415&q=80" alt="Project 3" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-2">
+                            <span class="inline-block bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full uppercase font-semibold tracking-wide">JavaScript</span>
+                            <span class="ml-2 inline-block bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full uppercase font-semibold tracking-wide">API</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Financial Dashboard</h3>
+                        <p class="text-gray-600 mb-4">A real-time financial dashboard that aggregates data from multiple sources and provides visual analytics for investments.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="text-indigo-600 hover:text-indigo-800 font-medium">View Project →</a>
+                            <div class="flex space-x-2">
+                                <a href="#" class="text-gray-500 hover:text-gray-700"><i class="fab fa-github"></i></a>
+                                <a href="#" class="text-gray-500 hover:text-gray-700"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 4 -->
+                <div class="project-card bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Project 4" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-2">
+                            <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full uppercase font-semibold tracking-wide">React</span>
+                            <span class="ml-2 inline-block bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full uppercase font-semibold tracking-wide">Redux</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Social Media Analytics</h3>
+                        <p class="text-gray-600 mb-4">A platform that provides in-depth analytics for social media accounts, including engagement metrics and content performance.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="text-indigo-600 hover:text-indigo-800 font-medium">View Project →</a>
+                            <div class="flex space-x-2">
+                                <a href="#" class="text-gray-500 hover:text-gray-700"><i class="fab fa-github"></i></a>
+                                <a href="#" class="text-gray-500 hover:text-gray-700"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 5 -->
+                <div class="project-card bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Project 5" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-2">
+                            <span class="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full uppercase font-semibold tracking-wide">Vue.js</span>
+                            <span class="ml-2 inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full uppercase font-semibold tracking-wide">Firebase</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Team Collaboration Tool</h3>
+                        <p class="text-gray-600 mb-4">A real-time collaboration platform for remote teams with video conferencing, document sharing, and project management.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="text-indigo-600 hover:text-indigo-800 font-medium">View Project →</a>
+                            <div class="flex space-x-2">
+                                <a href="#" class="text-gray-500 hover:text-gray-700"><i class="fab fa-github"></i></a>
+                                <a href="#" class="text-gray-500 hover:text-gray-700"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 6 -->
+                <div class="project-card bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Project 6" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-2">
+                            <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full uppercase font-semibold tracking-wide">React</span>
+                            <span class="ml-2 inline-block bg-pink-100 text-pink-800 text-xs px-2 py-1 rounded-full uppercase font-semibold tracking-wide">GraphQL</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Health & Fitness Tracker</h3>
+                        <p class="text-gray-600 mb-4">A comprehensive health tracking application that monitors workouts, nutrition, sleep patterns, and wellness metrics.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="text-indigo-600 hover:text-indigo-800 font-medium">View Project →</a>
+                            <div class="flex space-x-2">
+                                <a href="#" class="text-gray-500 hover:text-gray-700"><i class="fab fa-github"></i></a>
+                                <a href="#" class="text-gray-500 hover:text-gray-700"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <a href="#" class="btn-primary text-white px-8 py-3 rounded-lg font-medium inline-block">View All Projects</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">My <span class="gradient-text">Experience</span></h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto"></div>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">My professional journey and the milestones I've achieved along the way.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-6 text-center">Work Experience</h3>
+                    <div class="relative pl-8">
+                        <!-- Experience 1 -->
+                        <div class="timeline-item relative pb-8">
+                            <div class="bg-white p-6 rounded-lg shadow-md">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="text-lg font-semibold">Senior Frontend Developer</h4>
+                                    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">2021 - Present</span>
+                                </div>
+                                <h5 class="text-indigo-600 font-medium mb-2">Tech Solutions Inc.</h5>
+                                <p class="text-gray-600">Leading the frontend development team, architecting scalable web applications, and mentoring junior developers. Implemented modern React patterns that improved performance by 40%.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Experience 2 -->
+                        <div class="timeline-item relative pb-8">
+                            <div class="bg-white p-6 rounded-lg shadow-md">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="text-lg font-semibold">Frontend Developer</h4>
+                                    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">2019 - 2021</span>
+                                </div>
+                                <h5 class="text-indigo-600 font-medium mb-2">Digital Creations LLC</h5>
+                                <p class="text-gray-600">Developed responsive web applications using Vue.js and React. Collaborated with UX designers to implement pixel-perfect interfaces. Reduced page load times by 30% through performance optimizations.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Experience 3 -->
+                        <div class="timeline-item relative">
+                            <div class="bg-white p-6 rounded-lg shadow-md">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="text-lg font-semibold">Junior Web Developer</h4>
+                                    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">2017 - 2019</span>
+                                </div>
+                                <h5 class="text-indigo-600 font-medium mb-2">WebStart Agency</h5>
+                                <p class="text-gray-600">Built and maintained client websites using HTML, CSS, and JavaScript. Assisted in the development of custom WordPress themes and plugins. Contributed to team projects and learned modern development workflows.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-6 text-center">Education</h3>
+                    <div class="relative pl-8">
+                        <!-- Education 1 -->
+                        <div class="timeline-item relative pb-8">
+                            <div class="bg-white p-6 rounded-lg shadow-md">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="text-lg font-semibold">MSc in Computer Science</h4>
+                                    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">2015 - 2017</span>
+                                </div>
+                                <h5 class="text-indigo-600 font-medium mb-2">University of Technology</h5>
+                                <p class="text-gray-600">Specialized in Human-Computer Interaction and Web Technologies. Thesis on "Optimizing Frontend Performance in Single Page Applications".</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Education 2 -->
+                        <div class="timeline-item relative pb-8">
+                            <div class="bg-white p-6 rounded-lg shadow-md">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="text-lg font-semibold">BSc in Software Engineering</h4>
+                                    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">2011 - 2015</span>
+                                </div>
+                                <h5 class="text-indigo-600 font-medium mb-2">State University</h5>
+                                <p class="text-gray-600">Focus on web development and software design patterns. Graduated with honors. Active member of the Web Development Club.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Education 3 -->
+                        <div class="timeline-item relative">
+                            <div class="bg-white p-6 rounded-lg shadow-md">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="text-lg font-semibold">Frontend Development Bootcamp</h4>
+                                    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">2018</span>
+                                </div>
+                                <h5 class="text-indigo-600 font-medium mb-2">Code Masters Academy</h5>
+                                <p class="text-gray-600">Intensive 12-week program focused on modern JavaScript frameworks, responsive design, and web performance optimization.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Get In <span class="gradient-text">Touch</span></h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto"></div>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Have a project in mind or want to discuss potential opportunities? Feel free to reach out!</p>
+            </div>
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="md:w-1/2">
+                    <div class="bg-gray-50 p-8 rounded-xl shadow-sm">
+                        <h3 class="text-xl font-semibold mb-6">Contact Information</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-indigo-100 p-3 rounded-lg text-indigo-600">
+                                    <i class="fas fa-envelope text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-sm font-medium text-gray-500">Email</h4>
+                                    <p class="text-gray-800">miraclearokoyo2018@gmail.com
+                                        <span class="copy-container">
+                                            <i id="copyIcon" class="fa-solid fa-copy" title="Copy Email" style="cursor: pointer;"></i>
+                                            <span id="copiedMsg" class="copied-msg">Copied!</span>
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-indigo-100 p-3 rounded-lg text-indigo-600">
+                                    <i class="fas fa-phone-alt text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-sm font-medium text-gray-500">Phone</h4>
+                                    <p class="text-gray-800">+234 906 994 3919</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-indigo-100 p-3 rounded-lg text-indigo-600">
+                                    <i class="fas fa-map-marker-alt text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-sm font-medium text-gray-500">Location</h4>
+                                    <p class="text-gray-800">Abuja, NG</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8">
+                            <h3 class="text-xl font-semibold mb-6">Follow Me</h3>
+                            <div class="flex space-x-4">
+                                <a href="#" class="social-icon bg-gray-100 w-12 h-12 rounded-full flex items-center justify-center text-gray-700 hover:bg-indigo-100 hover:text-indigo-600">
+                                    <i class="fab fa-github text-xl"></i>
+                                </a>
+                                <a href="#" class="social-icon bg-gray-100 w-12 h-12 rounded-full flex items-center justify-center text-gray-700 hover:bg-blue-100 hover:text-blue-600">
+                                    <i class="fab fa-linkedin-in text-xl"></i>
+                                </a>
+                                <a href="#" class="social-icon bg-gray-100 w-12 h-12 rounded-full flex items-center justify-center text-gray-700 hover:bg-blue-100 hover:text-blue-400">
+                                    <i class="fab fa-twitter text-xl"></i>
+                                </a>
+                                <a href="#" class="social-icon bg-gray-100 w-12 h-12 rounded-full flex items-center justify-center text-gray-700 hover:bg-pink-100 hover:text-pink-600">
+                                    <i class="fab fa-dribbble text-xl"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <form class="bg-gray-50 p-8 rounded-xl shadow-sm">
+                        <div class="grid grid-cols-1 gap-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                                <input type="text" id="name" class="contact-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-200" placeholder="John Doe">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                                <input type="email" id="email" class="contact-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-200" placeholder="john@example.com">
+                            </div>
+                            <div>
+                                <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                                <input type="text" id="subject" class="contact-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-200" placeholder="Project Inquiry">
+                            </div>
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                                <textarea id="message" rows="5" class="contact-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-200" placeholder="Your message here..."></textarea>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn-primary w-full px-6 py-3 rounded-lg font-medium">Send Message</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <span class="text-xl font-bold gradient-text">Miracle</span>
+                    <p class="text-gray-400 mt-2">Creating digital experiences that matter.</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-dribbble"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm">© 2025 Miracle Arokoyo. All rights reserved.</p>
+                <div class="mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-white text-sm mr-4">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+
+        // Animate skill bars on scroll
+        const skillBars = document.querySelectorAll('.skill-progress');
+        
+        function animateSkillBars() {
+            skillBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 100);
+            });
+        }
+
+        // Intersection Observer for skill bars animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateSkillBars();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {threshold: 0.5});
+
+        const skillsSection = document.getElementById('skills');
+        if (skillsSection) {
+            observer.observe(skillsSection);
+        }
+    </script>
+</body>
+</html>
